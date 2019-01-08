@@ -6,11 +6,11 @@ import cloud4rpi
 
 # Enter the name of your Wi-Fi and its password here.
 # If you have an open Wi-Fi, simply remove the second item.
-WIFI_SSID_PASSWORD = '__SSID__', '__PWD__'
+WIFI_SSID_PASSWORD = 'Internet Spaceships Uplink', 'LucyGoosey'
 
 # Enter your device token here. To get the token,
 # sign up at https://cloud4rpi.io and create a device.
-DEVICE_TOKEN = '__YOUR_DEVICE_TOKEN__'
+DEVICE_TOKEN = '7Q4Nr5rwPNnFGr9BZht6mg5Qr'
 
 LED_PIN = 12
 BUTTON_PIN = 16
