@@ -1,6 +1,9 @@
-from time import time, sleep
-from machine import Pin, idle, reset
+#  from time import time, sleep
+import time
+#  from machine import Pin, idle, reset
+import machine
 from network import WLAN, STA_IF
+import onewire
 
 import cloud4rpi
 
@@ -14,6 +17,8 @@ DEVICE_TOKEN = '7Q4Nr5rwPNnFGr9BZht6mg5Qr'
 
 LED_PIN = 12
 BUTTON_PIN = 16
+# add temp probe - possible conflict
+dat = machine.Pin(12)
 
 WIFI_CONNECTION_TIMEOUT = 10  # seconds
 PUBLISH_INTERVAL = 60  # seconds
@@ -25,6 +30,9 @@ button = Pin(BUTTON_PIN, Pin.IN)
 button_state_prev = button.value()
 button_state_now = button_state_prev
 btn_value = False
+
+#  creat onewire object
+ds = onewire.DS18B20(onewire.OneWire(dat))
 
 
 def on_led(value):
@@ -39,6 +47,8 @@ def get_btn(value):
 
 STA = WLAN(STA_IF)
 STA.active(True)
+
+
 
 while not STA.isconnected():
     print("Connecting to Wi-Fi...")
@@ -62,7 +72,12 @@ while not STA.isconnected():
         if not device:
             continue
         print("Connected!")
-
+           
+        roms = ds.scan()
+        print('found devices:', roms)
+        ds.convert_temp()
+        time.sleep_ms(750)
+        
         # Available types: 'bool', 'numeric', 'string'
         device.declare({
             'LED': {
@@ -74,6 +89,10 @@ while not STA.isconnected():
                 'type': 'bool',
                 'value': False,
                 'bind': get_btn
+            },
+            'Temp': {
+                'type': 'numeric',
+                'bind': ds
             }
         })
         device.declare_diag({
