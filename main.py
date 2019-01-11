@@ -44,6 +44,9 @@ def get_btn(value):
     global btn_value
     return btn_value
 
+def ds(value):
+    ds.convert_temp()
+    return ds
 
 STA = WLAN(STA_IF)
 STA.active(True)
@@ -75,8 +78,8 @@ while not STA.isconnected():
            
         roms = ds.scan()
         print('found devices:', roms)
-        ds.convert_temp()
-        time.sleep_ms(750)
+        #  ds.convert_temp()
+        #  time.sleep_ms(750)
         
         # Available types: 'bool', 'numeric', 'string'
         device.declare({
