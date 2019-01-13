@@ -15,7 +15,7 @@ WIFI_SSID_PASSWORD = 'Internet Spaceships Uplink', 'LucyGoosey'
 # sign up at https://cloud4rpi.io and create a device.
 DEVICE_TOKEN = '7Q4Nr5rwPNnFGr9BZht6mg5Qr'
 
-LED_PIN = 12
+LED_PIN = 14
 BUTTON_PIN = 16
 # add temp probe - possible conflict
 dat = machine.Pin(12)
